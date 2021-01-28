@@ -66,6 +66,8 @@ int zAng = map(AcZ,minVal,maxVal,-90,90);
 z= RAD_TO_DEG * (atan2(-yAng, -xAng)+PI);
 
 if(z < 355){
-  Serial.println("Please make sure that the beam is 90 degrees wrt the base");
+  Serial.println(f("Please make sure that the beam is 90 degrees wrt the base"));
 }
+ else{
+  Serial.println(f("You may proceed with the experiment."));
 }
