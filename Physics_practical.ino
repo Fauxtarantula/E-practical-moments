@@ -16,7 +16,7 @@ double x,y,z;
 //#define calibration_factor ??
 const int LOADCELL_DOUT_PIN = 3;
 const int LOADCELL_SCK_PIN = 2;
-const int calibration_factor = 475;
+const int calibration_factor = -465;
 
 HX711 loadcell;
 
