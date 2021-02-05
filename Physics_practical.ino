@@ -16,7 +16,7 @@ double x,y,z;
 //#define calibration_factor ??
 const int LOADCELL_DOUT_PIN = 3;
 const int LOADCELL_SCK_PIN = 2;
-const int calibration_factor = -400;
+const int calibration_factor = -465;
 
 HX711 loadcell;
 
@@ -28,9 +28,10 @@ loadcell.begin(LOADCELL_DOUT_PIN, LOADCELL_SCK_PIN);
 loadcell.set_scale(calibration_factor);
 loadcell.tare(); //assume no weight at start up
 delay(5000);
-Serial.print("Weight: ");
-Serial.print(loadcell.get_units(), 1);
-Serial.print("Kg");
+
+/*Serial.print("Weight: ");
+Serial.print(loadcell.get_units(), 10);
+Serial.print("Kg");*/
 
 //accelerometer
 Wire.begin();
@@ -41,14 +42,20 @@ Wire.endTransmission(true);
 Serial.begin(9600);
 }
 void loop(){
+Serial.print("Force: ");
+Serial.print(loadcell.get_units()*9.81, 10);
+Serial.print("N");
+delay(7000);
 
 measureAnglefun();
-
+delay(7000);
 /*Serial.print("AngleZ= ");
 Serial.println(z);
 Serial.println("-----------------------------------------");
 delay(400);*/
 
+if(z>358 || z<2)
+  Serial.println(F("You may proceed"));
 }
 
 void measureAnglefun(){
@@ -65,9 +72,6 @@ int zAng = map(AcZ,minVal,maxVal,-90,90);
  
 z= RAD_TO_DEG * (atan2(-yAng, -xAng)+PI);
 
-if(z < 355){
-  Serial.println(f("Please make sure that the beam is 90 degrees wrt the base"));
-}
- else{
-  Serial.println(f("You may proceed with the experiment."));
+//Serial.println(z);
+
 }
